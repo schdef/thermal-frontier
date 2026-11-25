@@ -1,0 +1,653 @@
+/* ==========================================================================
+   SCREEN 2: LAND AUCTION (2x3 Isometric Parcels + Live Bidding + 3 Rivals)
+   Zero-scroll 100dvh layout for 1280x800 desktop & 390x844 mobile portrait
+   ========================================================================== */
+
+.tf-auction-screen {
+  padding: clamp(6px, 1.1dvh, 12px) clamp(8px, 1.5vw, 16px);
+  gap: clamp(6px, 1dvh, 10px);
+}
+
+.tf-auction-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 5px 12px;
+  border-radius: var(--tf-radius-pill);
+  border: 1px solid var(--tf-border);
+  background: rgba(15, 33, 58, 0.92);
+  min-height: 40px;
+}
+
+.tf-auction-header-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.tf-auction-icon {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--tf-bg-panel-elevated);
+  border: 1px solid var(--tf-border-strong);
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+.tf-auction-title-wrap {
+  min-width: 0;
+}
+
+.tf-auction-title-wrap h1,
+.tf-auction-title-wrap h2 {
+  margin: 0;
+  font-size: clamp(14px, 1.8vw, 18px);
+  font-weight: 900;
+  color: var(--tf-text);
+  line-height: 1.1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tf-auction-title-wrap span {
+  display: block;
+  font-size: 10px;
+  color: var(--tf-text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tf-auction-header-right {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.tf-snipe-pill {
+  padding: 3px 8px;
+  border-radius: var(--tf-radius-pill);
+  background: rgba(249, 115, 22, 0.18);
+  border: 1px solid var(--tf-thermal);
+  color: #fed7aa;
+  font-size: 10px;
+  font-weight: 800;
+}
+
+/* Main 2-col area: 2x3 grid on left, bidding/rival dock on right */
+.tf-auction-main-layout {
+  height: 100%;
+  min-height: 0;
+  min-width: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1.75fr) minmax(270px, 320px);
+  gap: clamp(8px, 1.2vw, 14px);
+  overflow: hidden;
+}
+
+.tf-parcels-grid-2x3 {
+  height: 100%;
+  min-height: 0;
+  min-width: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-rows: repeat(2, minmax(0, 1fr));
+  gap: clamp(6px, 1vw, 10px);
+  overflow: hidden;
+}
+
+.tf-isometric-parcel-card {
+  position: relative;
+  min-height: 0;
+  min-width: 0;
+  border-radius: var(--tf-radius-lg);
+  background: linear-gradient(155deg, #162d4e 0%, #0f213a 70%, #0b182c 100%);
+  border: 1px solid var(--tf-border);
+  padding: clamp(6px, 0.9dvh, 10px);
+  cursor: pointer;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  gap: 4px;
+  overflow: hidden;
+  transition: transform 140ms ease, border-color 140ms ease, box-shadow 140ms ease;
+}
+
+.tf-isometric-parcel-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--tf-accent-cta);
+}
+
+.tf-isometric-parcel-card.is-selected {
+  border-color: var(--tf-accent-cta-bright);
+  background: linear-gradient(155deg, #1d3a63 0%, #112645 100%);
+  box-shadow: 0 0 0 2px var(--tf-accent-cta), 0 8px 20px rgba(0, 0, 0, 0.45);
+}
+
+.tf-isometric-parcel-card.is-won {
+  border-color: var(--tf-positive);
+}
+
+.tf-isometric-parcel-card.is-closed:not(.is-won) {
+  opacity: 0.78;
+}
+
+.tf-parcel-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4px;
+  z-index: 2;
+}
+
+.tf-parcel-num-badge {
+  position: static;
+  padding: 2px 7px;
+  border-radius: var(--tf-radius-sm);
+  background: rgba(8, 20, 38, 0.85);
+  border: 1px solid var(--tf-border-strong);
+  font-size: 10px;
+  font-weight: 900;
+  color: var(--tf-text);
+}
+
+.tf-parcel-status-tag {
+  padding: 2px 6px;
+  border-radius: var(--tf-radius-pill);
+  font-size: 9px;
+  font-weight: 900;
+  text-transform: uppercase;
+  background: rgba(56, 189, 248, 0.14);
+  color: var(--tf-return);
+}
+
+.tf-parcel-status-tag.is-player {
+  background: rgba(34, 197, 94, 0.2);
+  color: var(--tf-positive-bright);
+}
+
+.tf-parcel-status-tag.is-rival {
+  background: rgba(249, 115, 22, 0.2);
+  color: #fdba74;
+}
+
+.tf-parcel-status-tag.is-ended {
+  background: rgba(148, 163, 184, 0.16);
+  color: var(--tf-text-muted);
+}
+
+.tf-parcel-isometric-art {
+  min-height: 0;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  transform: perspective(420px) rotateX(6deg);
+}
+
+.tf-isometric-svg {
+  width: 100%;
+  height: 100%;
+  max-height: 100%;
+  display: block;
+}
+
+.tf-iso-tile-base {
+  fill: #1b3654;
+  stroke: #476c99;
+  stroke-width: 1.2;
+}
+
+.tf-iso-extrude-left {
+  fill: #0e2036;
+}
+
+.tf-iso-extrude-right {
+  fill: #152b47;
+}
+
+.tf-parcel-info {
+  display: grid;
+  gap: 3px;
+  min-width: 0;
+}
+
+.tf-parcel-card-title {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 900;
+  color: var(--tf-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tf-parcel-clues {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  font-size: 10px;
+  color: var(--tf-text-muted);
+}
+
+.tf-parcel-clues span {
+  white-space: nowrap;
+}
+
+.tf-parcel-bid-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  padding-top: 3px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: 11px;
+}
+
+.tf-parcel-bid-row strong {
+  color: var(--tf-accent-cta-bright);
+  font-variant-numeric: tabular-nums;
+}
+
+.tf-parcel-bid-leader {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--tf-text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Right Bidding & Rival Control Dock */
+.tf-bidding-panel {
+  height: 100%;
+  min-height: 0;
+  min-width: 0;
+  padding: clamp(8px, 1.2dvh, 14px);
+  border-radius: var(--tf-radius-lg);
+  background: linear-gradient(160deg, var(--tf-bg-panel-elevated) 0%, var(--tf-bg-panel) 100%);
+  border: 1px solid var(--tf-border);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: clamp(6px, 0.9dvh, 10px);
+  overflow: hidden;
+}
+
+.tf-bid-panel-header {
+  display: grid;
+  gap: 2px;
+}
+
+.tf-bidding-target-title {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 900;
+  color: var(--tf-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tf-bidding-target-desc {
+  margin: 0;
+  font-size: 10px;
+  color: var(--tf-text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* 3 Rival Companies Strip */
+.tf-rivals-strip {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 4px;
+}
+
+.tf-rival-chip {
+  padding: 4px 6px;
+  border-radius: var(--tf-radius-sm);
+  border: 1px solid var(--tf-border);
+  background: rgba(8, 20, 38, 0.72);
+  display: grid;
+  gap: 1px;
+  min-width: 0;
+}
+
+.tf-rival-chip.is-leading {
+  border-color: var(--rival-color, var(--tf-thermal));
+  background: rgba(22, 45, 78, 0.95);
+}
+
+.tf-rival-chip.is-dropped {
+  opacity: 0.48;
+}
+
+.tf-rival-chip-top {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 10px;
+  font-weight: 800;
+  color: var(--tf-text);
+}
+
+.tf-rival-emblem {
+  color: var(--rival-color, var(--tf-return));
+  flex-shrink: 0;
+}
+
+.tf-rival-name {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tf-rival-meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 9px;
+  color: var(--tf-text-muted);
+}
+
+/* Bid Values & Steppers */
+.tf-bid-display-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+}
+
+.tf-bid-display-box {
+  padding: 6px 8px;
+  border-radius: var(--tf-radius-md);
+  background: rgba(8, 20, 38, 0.75);
+  border: 1px solid var(--tf-border);
+  display: grid;
+  gap: 2px;
+}
+
+.tf-bid-box-label {
+  font-size: 9px;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--tf-text-muted);
+}
+
+.tf-bid-box-val {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.tf-bid-box-val strong {
+  font-size: 16px;
+  font-weight: 900;
+  color: var(--tf-accent-cta-bright);
+  font-variant-numeric: tabular-nums;
+}
+
+.tf-bid-box-sub {
+  font-size: 9px;
+  color: var(--tf-text-muted);
+}
+
+.tf-stepper-control {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4px;
+}
+
+.tf-stepper-number {
+  font-size: 16px;
+  font-weight: 900;
+  color: var(--tf-positive-bright);
+  font-variant-numeric: tabular-nums;
+}
+
+.tf-stepper-buttons {
+  display: flex;
+  gap: 3px;
+}
+
+.tf-btn-step {
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  border: 1px solid var(--tf-border-strong);
+  background: var(--tf-bg-panel-elevated);
+  color: var(--tf-text);
+  font-size: 9px;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  padding: 0;
+}
+
+.tf-btn-step:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.tf-bid-increment-chips {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 4px;
+}
+
+.tf-inc-chip {
+  padding: 4px 2px;
+  border-radius: var(--tf-radius-sm);
+  border: 1px solid var(--tf-border);
+  background: rgba(8, 20, 38, 0.72);
+  color: var(--tf-text);
+  font-size: 10px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.tf-inc-chip:hover:not(:disabled) {
+  border-color: var(--tf-accent-cta);
+  color: var(--tf-accent-cta-bright);
+}
+
+.tf-inc-chip:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.tf-bid-actions-stack {
+  display: grid;
+  gap: 6px;
+}
+
+.tf-bid-btn-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+}
+
+.tf-btn-place-bid {
+  padding: 9px 10px;
+  border-radius: var(--tf-radius-pill);
+  border: 1px solid var(--tf-accent-cta-bright);
+  background: linear-gradient(180deg, var(--tf-accent-cta-bright) 0%, var(--tf-accent-cta) 100%);
+  color: var(--tf-accent-cta-ink);
+  font-size: 12px;
+  font-weight: 900;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.tf-btn-quick-bid {
+  padding: 9px 10px;
+  border-radius: var(--tf-radius-pill);
+  border: 1px solid var(--tf-positive-bright);
+  background: linear-gradient(180deg, var(--tf-positive) 0%, #16a34a 100%);
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 900;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.tf-btn-place-bid:disabled,
+.tf-btn-quick-bid:disabled {
+  opacity: 0.42;
+  cursor: not-allowed;
+}
+
+.tf-btn-withdraw-quiet {
+  width: 100%;
+  padding: 6px 10px;
+  border-radius: var(--tf-radius-pill);
+  border: 1px solid var(--tf-border);
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--tf-text-muted);
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.tf-btn-proceed-survey {
+  width: 100%;
+  padding: 9px 14px;
+  border-radius: var(--tf-radius-pill);
+  border: 1px solid var(--tf-positive-bright);
+  background: linear-gradient(180deg, var(--tf-positive) 0%, #16a34a 100%);
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.tf-auction-status-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 9px;
+  border-radius: var(--tf-radius-md);
+  background: rgba(8, 20, 38, 0.72);
+  border: 1px solid var(--tf-border);
+  font-size: 10px;
+  color: var(--tf-text-muted);
+  line-height: 1.3;
+}
+
+.tf-auction-status-box.is-won {
+  border-color: var(--tf-positive);
+  background: rgba(34, 197, 94, 0.14);
+  color: #dcfce7;
+}
+
+.tf-auction-status-box.is-lost {
+  border-color: var(--tf-thermal);
+  background: rgba(249, 115, 22, 0.14);
+  color: #ffedd5;
+}
+
+/* Slim Footer Trophy Strip */
+.tf-bottom-trophy-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 4px 12px;
+  border-radius: var(--tf-radius-pill);
+  background: rgba(15, 33, 58, 0.9);
+  border: 1px solid var(--tf-accent-cta);
+  color: #fef3c7;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+/* --------------------------------------------------------------------------
+   MOBILE PORTRAIT RESPONSIVE RULES (390x844 & <= 768px)
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 768px) {
+  .tf-auction-header {
+    padding: 4px 10px;
+    min-height: 36px;
+  }
+
+  .tf-auction-title-wrap span {
+    display: none;
+  }
+
+  .tf-auction-main-layout {
+    grid-template-columns: 1fr;
+    grid-template-rows: minmax(0, 1fr) auto;
+    gap: 6px;
+  }
+
+  .tf-parcels-grid-2x3 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: repeat(3, minmax(0, 1fr));
+    gap: 5px;
+  }
+
+  .tf-isometric-parcel-card {
+    padding: 5px 6px;
+    gap: 2px;
+  }
+
+  .tf-parcel-card-title {
+    font-size: 11px;
+  }
+
+  .tf-parcel-clues {
+    font-size: 9px;
+    gap: 4px;
+  }
+
+  .tf-parcel-bid-row {
+    font-size: 10px;
+  }
+
+  .tf-bidding-panel {
+    padding: 7px 9px;
+    gap: 5px;
+  }
+
+  .tf-bid-panel-header,
+  .tf-bid-increment-chips,
+  .tf-auction-status-box {
+    display: none;
+  }
+
+  .tf-rivals-strip {
+    gap: 3px;
+  }
+
+  .tf-rival-chip {
+    padding: 3px 5px;
+  }
+
+  .tf-bid-display-box {
+    padding: 4px 7px;
+  }
+
+  .tf-bid-box-val strong,
+  .tf-stepper-number {
+    font-size: 14px;
+  }
+
+  .tf-btn-place-bid,
+  .tf-btn-quick-bid {
+    padding: 7px 8px;
+    font-size: 11px;
+  }
+
+  .tf-bottom-trophy-banner {
+    display: none;
+  }
+}

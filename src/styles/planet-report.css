@@ -1,0 +1,955 @@
+/* ==========================================================================
+   SCREEN 1 (PlanetSelectScreen) & SCREEN 6 (RoundReportScreen)
+   Zero-scroll 100dvh layouts for 1280x800 desktop and 390x844 mobile portrait
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   SHARED COMPACT SCREEN HEADER & CAPSULES
+   -------------------------------------------------------------------------- */
+
+.tf-screen-top-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 6px 12px;
+  border-radius: var(--tf-radius-pill);
+  border: 1px solid var(--tf-border);
+  background: rgba(15, 33, 58, 0.9);
+  min-height: 42px;
+  flex-shrink: 0;
+}
+
+.tf-screen-title-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.tf-screen-badge-icon {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--tf-bg-panel-elevated);
+  border: 1px solid var(--tf-border-strong);
+  font-size: 15px;
+  flex-shrink: 0;
+}
+
+.tf-screen-title-copy {
+  min-width: 0;
+}
+
+.tf-screen-title-copy h1 {
+  margin: 0;
+  font-size: clamp(14px, 1.8vw, 18px);
+  font-weight: 900;
+  color: var(--tf-text);
+  line-height: 1.1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tf-screen-title-copy span {
+  display: block;
+  font-size: 11px;
+  color: var(--tf-text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tf-screen-meta-pills {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+/* --------------------------------------------------------------------------
+   SCREEN 1: PLANET INTRODUCTION / SELECT
+   -------------------------------------------------------------------------- */
+
+.tf-planet-screen {
+  padding: clamp(6px, 1.1dvh, 12px) clamp(8px, 1.5vw, 16px);
+  gap: clamp(6px, 1dvh, 10px);
+}
+
+.tf-planet-brand-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 6px 14px;
+  border-radius: var(--tf-radius-pill);
+  border: 1px solid var(--tf-border);
+  background: rgba(15, 33, 58, 0.9);
+  min-height: 44px;
+}
+
+.tf-brand-hero-inline {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  min-width: 0;
+  flex-wrap: wrap;
+}
+
+.tf-brand-hero-inline .tf-logo-container {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
+}
+
+.tf-brand-hero-inline .tf-logo-thermal {
+  font-size: clamp(17px, 2.2vw, 24px);
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  color: var(--tf-text);
+  text-shadow: 0 0 14px rgba(56, 189, 248, 0.35);
+}
+
+.tf-brand-hero-inline .tf-logo-peak {
+  color: var(--tf-return);
+  font-size: 0.85em;
+}
+
+.tf-brand-hero-inline .tf-logo-frontier {
+  font-size: clamp(17px, 2.2vw, 24px);
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  background: linear-gradient(180deg, var(--tf-accent-cta-bright) 0%, var(--tf-thermal) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.tf-brand-hero-inline .tf-logo-subtitle {
+  margin: 0;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--tf-text-muted);
+}
+
+.tf-planet-stage {
+  height: 100%;
+  min-height: 0;
+  min-width: 0;
+  display: grid;
+  grid-template-columns: minmax(250px, 310px) minmax(0, 1fr) 152px;
+  gap: clamp(8px, 1.4vw, 18px);
+  align-items: stretch;
+  padding: clamp(8px, 1.2dvh, 16px);
+  border-radius: var(--tf-radius-lg);
+  border: 1px solid var(--tf-border);
+  background: radial-gradient(circle at 52% 45%, #11284a 0%, #081426 68%, #050d1a 100%);
+  overflow: hidden;
+}
+
+.tf-planet-card {
+  min-height: 0;
+  min-width: 0;
+  padding: clamp(10px, 1.5dvh, 16px);
+  border-radius: var(--tf-radius-lg);
+  border: 1px solid var(--tf-border-strong);
+  background: rgba(15, 33, 58, 0.92);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: clamp(6px, 1dvh, 10px);
+  overflow: hidden;
+}
+
+.tf-planet-card-header {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.tf-planet-sector-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+}
+
+.tf-card-sector-tag {
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--tf-accent-cta-bright);
+}
+
+.tf-card-sector-tag.is-locked {
+  color: var(--tf-text-muted);
+}
+
+.tf-planet-card-name {
+  margin: 0;
+  font-size: clamp(20px, 2.4dvh, 26px);
+  font-weight: 900;
+  color: var(--tf-text);
+  line-height: 1.1;
+}
+
+.tf-planet-specs {
+  display: grid;
+  gap: clamp(4px, 0.7dvh, 7px);
+  padding: clamp(6px, 0.9dvh, 10px) 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.tf-spec-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+}
+
+.tf-spec-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--tf-text-muted);
+  font-weight: 600;
+}
+
+.tf-spec-value--thermal {
+  color: var(--tf-thermal);
+}
+
+.tf-spec-value--resources {
+  color: var(--tf-mineral);
+}
+
+.tf-spec-value--terrain {
+  color: var(--tf-stable);
+}
+
+.tf-spec-value--difficulty {
+  color: var(--tf-warning);
+}
+
+.tf-spec-value--return {
+  color: var(--tf-return);
+}
+
+.tf-planet-card-desc {
+  margin: 0;
+  font-size: 11px;
+  line-height: 1.4;
+  color: var(--tf-text-muted);
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.tf-planet-card-actions {
+  display: grid;
+  gap: 6px;
+}
+
+.tf-btn-start-round {
+  width: 100%;
+  padding: 10px 16px;
+  border-radius: var(--tf-radius-pill);
+  border: 1px solid var(--tf-accent-cta-bright);
+  background: linear-gradient(180deg, var(--tf-accent-cta-bright) 0%, var(--tf-accent-cta) 100%);
+  color: var(--tf-accent-cta-ink);
+  font-size: 14px;
+  font-weight: 900;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(245, 158, 11, 0.35);
+  transition: transform 140ms ease, filter 140ms ease;
+}
+
+.tf-btn-start-round:hover:not(:disabled) {
+  transform: translateY(-1px);
+  filter: brightness(1.06);
+}
+
+.tf-btn-start-round:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background: var(--tf-bg-panel-elevated);
+  border-color: var(--tf-border);
+  color: var(--tf-text-muted);
+  box-shadow: none;
+}
+
+.tf-planet-save-actions {
+  display: flex;
+  gap: 6px;
+  justify-content: space-between;
+}
+
+.tf-planet-save-actions .tf-btn {
+  flex: 1;
+  padding: 6px 8px;
+  font-size: 11px;
+}
+
+.tf-pagination-dots {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+}
+
+.tf-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: 0;
+  background: var(--tf-border-strong);
+  cursor: pointer;
+  padding: 0;
+}
+
+.tf-dot.is-active {
+  background: var(--tf-accent-cta-bright);
+  box-shadow: 0 0 8px var(--tf-accent-cta-bright);
+}
+
+.tf-planet-visual-center {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  min-height: 0;
+  min-width: 0;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border: 0;
+  background: transparent;
+}
+
+.tf-space-backdrop {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.tf-planet-sphere-wrap {
+  width: 100%;
+  height: 100%;
+  max-width: min(100%, 420px);
+  max-height: min(100%, 420px);
+  display: grid;
+  place-items: center;
+  animation: tfFloatPlanet 6s ease-in-out infinite;
+}
+
+@keyframes tfFloatPlanet {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+.tf-planet-svg {
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  display: block;
+}
+
+.tf-locked-overlay-pill {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 4px 12px;
+  border-radius: var(--tf-radius-pill);
+  background: rgba(8, 20, 38, 0.88);
+  border: 1px solid var(--tf-border-strong);
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--tf-text-muted);
+  white-space: nowrap;
+}
+
+.tf-hexagon-selector-column {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 6px;
+  min-height: 0;
+  min-width: 0;
+}
+
+.tf-hex-column-label {
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--tf-text-muted);
+  text-align: center;
+}
+
+.tf-hex-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 5px 8px;
+  background: rgba(15, 33, 58, 0.72);
+  border: 1px solid var(--tf-border);
+  border-radius: var(--tf-radius-md);
+  cursor: pointer;
+  transition: border-color 140ms ease, background-color 140ms ease;
+  text-align: left;
+}
+
+.tf-hex-btn:hover,
+.tf-hex-btn.is-active {
+  background: rgba(22, 45, 78, 0.95);
+  border-color: var(--hex-accent, var(--tf-return));
+}
+
+.tf-hex-btn.is-locked {
+  opacity: 0.72;
+}
+
+.tf-hex-shape {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  flex: 0 0 28px;
+  background: var(--tf-bg-navy);
+  border: 1px solid var(--hex-accent, var(--tf-return));
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  font-size: 13px;
+}
+
+.tf-hex-btn.is-active .tf-hex-shape {
+  background: var(--hex-accent, var(--tf-return));
+}
+
+.tf-hex-meta {
+  display: grid;
+  min-width: 0;
+}
+
+.tf-hex-name {
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--tf-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tf-hex-state {
+  font-size: 9px;
+  color: var(--tf-text-muted);
+}
+
+.tf-planet-footer-strip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 5px 12px;
+  border-radius: var(--tf-radius-pill);
+  border: 1px solid var(--tf-border);
+  background: rgba(15, 33, 58, 0.85);
+  font-size: 11px;
+  color: var(--tf-text-muted);
+}
+
+/* --------------------------------------------------------------------------
+   SCREEN 6: ROUND REPORT
+   -------------------------------------------------------------------------- */
+
+.tf-round-report-screen {
+  padding: clamp(6px, 1.1dvh, 12px) clamp(8px, 1.5vw, 16px);
+  gap: clamp(6px, 1dvh, 10px);
+}
+
+.tf-report-body {
+  height: 100%;
+  min-height: 0;
+  min-width: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+  gap: clamp(8px, 1.2vw, 14px);
+  overflow: hidden;
+}
+
+.tf-report-col {
+  height: 100%;
+  min-height: 0;
+  min-width: 0;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  gap: clamp(6px, 1dvh, 10px);
+  overflow: hidden;
+}
+
+.tf-report-card {
+  min-height: 0;
+  min-width: 0;
+  padding: clamp(10px, 1.4dvh, 16px);
+  border-radius: var(--tf-radius-lg);
+  background: linear-gradient(160deg, var(--tf-bg-panel-elevated) 0%, var(--tf-bg-panel) 100%);
+  border: 1px solid var(--tf-border);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: clamp(6px, 0.9dvh, 10px);
+  overflow: hidden;
+}
+
+.tf-report-hero-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.tf-profit-hero-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.tf-card-label {
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--tf-text-muted);
+}
+
+.tf-giant-profit-number {
+  font-size: clamp(26px, 4.2dvh, 46px);
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.tf-giant-profit-number.is-positive {
+  color: var(--tf-positive-bright);
+}
+
+.tf-giant-profit-number.is-negative {
+  color: var(--tf-danger);
+}
+
+.tf-giant-profit-number.is-neutral {
+  color: var(--tf-text);
+}
+
+.tf-profit-badge-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  border-radius: var(--tf-radius-pill);
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.tf-profit-badge-pill.is-positive {
+  background: rgba(34, 197, 94, 0.16);
+  border: 1px solid var(--tf-positive);
+  color: var(--tf-positive-bright);
+}
+
+.tf-profit-badge-pill.is-negative {
+  background: rgba(239, 68, 68, 0.16);
+  border: 1px solid var(--tf-danger);
+  color: #fca5a5;
+}
+
+.tf-report-kpis-row {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.tf-kpi-chip {
+  padding: 6px 8px;
+  border-radius: var(--tf-radius-md);
+  background: rgba(8, 20, 38, 0.65);
+  border: 1px solid var(--tf-border);
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+}
+
+.tf-kpi-chip span {
+  font-size: 9px;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--tf-text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tf-kpi-chip strong {
+  font-size: 13px;
+  font-weight: 900;
+  color: var(--tf-text);
+  font-variant-numeric: tabular-nums;
+}
+
+.tf-report-financial-ledger {
+  min-height: 0;
+  padding: clamp(8px, 1.2dvh, 14px);
+  border-radius: var(--tf-radius-lg);
+  background: var(--tf-bg-panel);
+  border: 1px solid var(--tf-border);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  overflow: hidden;
+}
+
+.tf-ledger-heading {
+  margin: 0;
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--tf-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.tf-ledger-lines-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 6px;
+  align-content: start;
+  overflow: hidden;
+}
+
+.tf-ledger-line {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 9px;
+  border-radius: var(--tf-radius-sm);
+  background: rgba(8, 20, 38, 0.72);
+  border: 1px solid rgba(37, 65, 102, 0.65);
+  font-size: 11px;
+  min-width: 0;
+}
+
+.tf-ledger-label {
+  color: var(--tf-text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tf-ledger-value {
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.tf-tone-positive strong {
+  color: var(--tf-positive-bright);
+}
+
+.tf-tone-negative strong {
+  color: #fca5a5;
+}
+
+.tf-depletion-bars-stack {
+  display: grid;
+  gap: clamp(6px, 1dvh, 12px);
+}
+
+.tf-depletion-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--tf-text);
+  margin-bottom: 4px;
+}
+
+.tf-depletion-sub {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--tf-text-muted);
+}
+
+.tf-depletion-percent {
+  margin-left: auto;
+  font-family: var(--tf-font-mono);
+  font-size: 12px;
+}
+
+.tf-progress-track {
+  height: 10px;
+  border-radius: var(--tf-radius-pill);
+  background: var(--tf-bg-navy);
+  overflow: hidden;
+  border: 1px solid var(--tf-border);
+}
+
+.tf-progress-fill {
+  height: 100%;
+  border-radius: var(--tf-radius-pill);
+  transition: width 500ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.tf-fill--thermal {
+  background: linear-gradient(90deg, #ea580c 0%, var(--tf-thermal) 60%, var(--tf-thermal-hot) 100%);
+}
+
+.tf-fill--minerals {
+  background: linear-gradient(90deg, #6366f1 0%, var(--tf-mineral) 55%, var(--tf-mineral-purple) 100%);
+}
+
+.tf-fill--ground {
+  background: linear-gradient(90deg, #16a34a 0%, var(--tf-stable) 100%);
+}
+
+.tf-report-feedback-card {
+  padding: clamp(8px, 1.2dvh, 14px);
+  border-radius: var(--tf-radius-lg);
+  background: rgba(15, 33, 58, 0.9);
+  border: 1px solid var(--tf-border);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4px;
+  min-height: 0;
+}
+
+.tf-report-feedback-card strong {
+  font-size: 12px;
+  color: var(--tf-accent-cta-bright);
+}
+
+.tf-report-feedback-card p {
+  margin: 0;
+  font-size: 11px;
+  line-height: 1.4;
+  color: var(--tf-text-muted);
+}
+
+.tf-report-footer-action {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.tf-report-footer-secondary {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.tf-btn-report-continue {
+  margin-left: auto;
+  padding: 10px 28px;
+  border-radius: var(--tf-radius-pill);
+  border: 1px solid var(--tf-positive-bright);
+  background: linear-gradient(180deg, var(--tf-positive) 0%, #16a34a 100%);
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 900;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(34, 197, 94, 0.35);
+}
+
+.tf-btn-report-continue:hover {
+  filter: brightness(1.08);
+  transform: translateY(-1px);
+}
+
+/* --------------------------------------------------------------------------
+   MOBILE PORTRAIT RESPONSIVE RULES (390x844 & <= 768px)
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 768px) {
+  .tf-planet-brand-bar {
+    padding: 4px 10px;
+    min-height: 36px;
+  }
+
+  .tf-brand-hero-inline .tf-logo-subtitle {
+    display: none;
+  }
+
+  .tf-planet-stage {
+    grid-template-columns: 1fr;
+    grid-template-rows: minmax(120px, 1fr) auto auto;
+    gap: 6px;
+    padding: 8px;
+  }
+
+  .tf-planet-visual-center {
+    order: 1;
+  }
+
+  .tf-planet-sphere-wrap {
+    max-width: min(52vw, 190px);
+    max-height: min(24dvh, 190px);
+  }
+
+  .tf-hexagon-selector-column {
+    order: 2;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 4px;
+  }
+
+  .tf-hex-column-label {
+    display: none;
+  }
+
+  .tf-hex-btn {
+    flex: 1;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    padding: 4px 3px;
+    text-align: center;
+  }
+
+  .tf-hex-shape {
+    width: 24px;
+    height: 24px;
+    flex-basis: 24px;
+    font-size: 11px;
+  }
+
+  .tf-hex-name {
+    font-size: 9px;
+  }
+
+  .tf-hex-state {
+    display: none;
+  }
+
+  .tf-planet-card {
+    order: 3;
+    padding: 8px 10px;
+    gap: 6px;
+  }
+
+  .tf-planet-card-desc {
+    display: none;
+  }
+
+  .tf-planet-specs {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 4px 10px;
+    padding: 6px 0;
+  }
+
+  .tf-spec-row {
+    font-size: 10px;
+  }
+
+  .tf-planet-footer-strip {
+    display: none;
+  }
+
+  /* Screen 6 Mobile Portrait */
+  .tf-screen-top-row {
+    padding: 4px 10px;
+    min-height: 36px;
+  }
+
+  .tf-screen-title-copy span {
+    display: none;
+  }
+
+  .tf-report-body {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
+    gap: 6px;
+  }
+
+  .tf-report-col {
+    grid-template-rows: auto auto;
+    gap: 6px;
+  }
+
+  .tf-report-card {
+    padding: 8px 10px;
+    gap: 6px;
+  }
+
+  .tf-giant-profit-number {
+    font-size: 28px;
+  }
+
+  .tf-report-kpis-row {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 4px;
+  }
+
+  .tf-kpi-chip {
+    padding: 4px 5px;
+  }
+
+  .tf-kpi-chip strong {
+    font-size: 11px;
+  }
+
+  .tf-report-financial-ledger {
+    padding: 8px 10px;
+    gap: 4px;
+  }
+
+  .tf-ledger-lines-grid {
+    gap: 4px;
+  }
+
+  .tf-ledger-line {
+    padding: 4px 6px;
+    font-size: 10px;
+  }
+
+  .tf-depletion-bars-stack {
+    gap: 6px;
+  }
+
+  .tf-depletion-label {
+    font-size: 11px;
+    margin-bottom: 2px;
+  }
+
+  .tf-progress-track {
+    height: 8px;
+  }
+
+  .tf-report-feedback-card {
+    padding: 6px 10px;
+  }
+
+  .tf-report-feedback-card p {
+    font-size: 10px;
+    -webkit-line-clamp: 2;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .tf-btn-report-continue {
+    padding: 9px 22px;
+    font-size: 13px;
+  }
+}

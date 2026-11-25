@@ -1,0 +1,759 @@
+/* ==========================================================================
+   SCREEN 4: TURMOIL-STYLE DIRECTIONAL DRILLING (Zero-Scroll 100dvh)
+   Fits 1280x800 desktop & 390x844 mobile portrait inside .tf-app-main
+   ========================================================================== */
+
+.tf-screen.tf-turmoil-drilling-screen {
+  height: 100%;
+  min-height: 0;
+  min-width: 0;
+  padding: clamp(6px, 1dvh, 10px) clamp(8px, 1.4vw, 14px);
+  gap: clamp(6px, 1dvh, 10px);
+  grid-template-rows: auto minmax(0, 1fr);
+  overflow: hidden;
+}
+
+/* Header Capsule */
+.tf-drilling-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 5px 12px;
+  border-radius: var(--tf-radius-pill);
+  border: 1px solid var(--tf-border);
+  background: rgba(15, 33, 58, 0.92);
+  min-height: 40px;
+  flex-shrink: 0;
+}
+
+.tf-drilling-header-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.tf-drilling-badge-icon {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--tf-bg-panel-elevated);
+  border: 1px solid var(--tf-border-strong);
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+.tf-drilling-title-copy {
+  min-width: 0;
+}
+
+.tf-drilling-title-copy h1 {
+  margin: 0;
+  font-size: clamp(14px, 1.8vw, 18px);
+  font-weight: 900;
+  color: var(--tf-text);
+  line-height: 1.1;
+  white-space: nowrap;
+}
+
+.tf-drilling-title-copy span {
+  display: block;
+  font-size: 10px;
+  color: var(--tf-text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tf-drilling-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.tf-tier-pill {
+  border-color: rgba(56, 189, 248, 0.45);
+  color: #bae6fd;
+  font-size: 11px;
+}
+
+.tf-snap-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 11px;
+  border-radius: var(--tf-radius-pill);
+  border: 1px solid var(--tf-border-strong);
+  background: var(--tf-bg-panel-elevated);
+  color: var(--tf-text-muted);
+  font-size: 11px;
+  font-weight: 800;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: border-color 140ms ease, background-color 140ms ease, color 140ms ease;
+}
+
+.tf-snap-pill strong {
+  color: var(--tf-text);
+}
+
+.tf-snap-pill.is-active {
+  border-color: var(--tf-return);
+  background: rgba(56, 189, 248, 0.16);
+  color: #bae6fd;
+}
+
+.tf-snap-pill.is-active strong {
+  color: var(--tf-return);
+}
+
+/* Main Workspace: 2D Underground Cross-Section + Controls Dock */
+.tf-drilling-workspace {
+  height: 100%;
+  min-height: 0;
+  min-width: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(276px, 316px);
+  gap: clamp(8px, 1.2vw, 12px);
+  overflow: hidden;
+}
+
+.tf-stage.tf-subterranean-stage {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  min-height: 0;
+  min-width: 0;
+  aspect-ratio: auto;
+  border-radius: var(--tf-radius-lg);
+  border: 1px solid var(--tf-border);
+  background: #06101f;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+
+.tf-turmoil-cutaway-svg {
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  display: block;
+  cursor: crosshair;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.tf-surface-pad {
+  cursor: pointer;
+}
+
+/* Live Progressive Drilling HUD Pill inside Stage */
+.tf-drill-progress-hud {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 6;
+  width: min(92%, 400px);
+  display: grid;
+  gap: 4px;
+  padding: 7px 12px;
+  border-radius: var(--tf-radius-md);
+  border: 1px solid rgba(56, 189, 248, 0.6);
+  background: rgba(8, 20, 38, 0.92);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+  pointer-events: none;
+}
+
+.tf-drill-progress-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 11px;
+}
+
+.tf-drill-progress-meta strong {
+  color: var(--tf-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tf-drill-progress-meta span {
+  color: var(--tf-return);
+  font-family: var(--tf-font-mono);
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.tf-drill-progress-track {
+  height: 5px;
+  border-radius: var(--tf-radius-pill);
+  background: rgba(148, 163, 184, 0.2);
+  overflow: hidden;
+}
+
+.tf-drill-progress-fill {
+  height: 100%;
+  border-radius: var(--tf-radius-pill);
+  background: linear-gradient(90deg, var(--tf-return) 0%, var(--tf-accent-cta-bright) 100%);
+  transition: width 60ms linear;
+}
+
+/* Discovery / Scan Notification Toast inside Stage */
+.tf-drill-toast {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  max-width: min(92%, 440px);
+  padding: 7px 12px;
+  border-radius: var(--tf-radius-md);
+  border: 1px solid var(--tf-border-strong);
+  background: rgba(8, 20, 38, 0.94);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+}
+
+.tf-drill-toast--positive {
+  border-color: var(--tf-positive);
+}
+
+.tf-drill-toast--warning {
+  border-color: var(--tf-warning);
+}
+
+.tf-drill-toast--danger {
+  border-color: var(--tf-danger);
+}
+
+.tf-drill-toast-copy {
+  display: grid;
+  gap: 1px;
+  min-width: 0;
+}
+
+.tf-drill-toast-copy strong {
+  font-size: 12px;
+  color: var(--tf-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tf-drill-toast-copy span {
+  font-size: 10px;
+  color: var(--tf-text-muted);
+}
+
+.tf-drill-toast-close {
+  border: 0;
+  background: transparent;
+  color: var(--tf-text-muted);
+  cursor: pointer;
+  font-size: 12px;
+  padding: 2px 4px;
+}
+
+/* Right Controls Sidebar */
+.tf-turmoil-drilling-screen .tf-drilling-controls-column {
+  height: 100%;
+  min-height: 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: space-between;
+  gap: 7px;
+  padding: 10px 12px;
+  border-radius: var(--tf-radius-lg);
+  background: linear-gradient(160deg, var(--tf-bg-panel-elevated) 0%, var(--tf-bg-panel) 100%);
+  border: 1px solid var(--tf-border);
+  overflow: hidden;
+}
+
+.tf-turmoil-drilling-screen .tf-drill-telemetry-badge {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 6px;
+  padding: 7px 8px;
+  border-radius: var(--tf-radius-md);
+  background: rgba(8, 20, 38, 0.72);
+  border: 1px solid var(--tf-border);
+}
+
+.tf-turmoil-drilling-screen .tf-telemetry-row {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  font-size: 10px;
+}
+
+.tf-turmoil-drilling-screen .tf-telemetry-label {
+  color: var(--tf-text-muted);
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 9px;
+}
+
+.tf-turmoil-drilling-screen .tf-telemetry-val {
+  font-size: 13px;
+  font-weight: 900;
+  color: var(--tf-text);
+  font-family: var(--tf-font-mono);
+}
+
+.tf-turmoil-drilling-screen .tf-val--cost {
+  color: var(--tf-accent-cta-bright);
+}
+
+.tf-val--danger {
+  color: var(--tf-danger) !important;
+}
+
+/* Validation Badge */
+.tf-drill-validation {
+  padding: 5px 9px;
+  border-radius: var(--tf-radius-sm);
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1.3;
+  border: 1px solid var(--tf-border);
+  background: rgba(8, 20, 38, 0.65);
+  color: var(--tf-text-muted);
+}
+
+.tf-drill-validation.is-valid {
+  border-color: rgba(34, 197, 94, 0.5);
+  background: rgba(34, 197, 94, 0.12);
+  color: var(--tf-positive-bright);
+}
+
+.tf-drill-validation.is-warning {
+  border-color: rgba(251, 191, 36, 0.6);
+  background: rgba(251, 191, 36, 0.14);
+  color: var(--tf-accent-cta-bright);
+}
+
+.tf-drill-validation.is-error {
+  border-color: rgba(239, 68, 68, 0.7);
+  background: rgba(239, 68, 68, 0.16);
+  color: #fecaca;
+}
+
+/* Scan Car & Speed Upgrade Tech Row */
+.tf-drill-tech-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.tf-btn-scan-car,
+.tf-btn-speed-upgrade {
+  padding: 7px 8px;
+  font-size: 11px;
+  border-radius: var(--tf-radius-pill);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tf-btn-scan-car {
+  border-color: var(--tf-return);
+  background: rgba(56, 189, 248, 0.14);
+  color: #e0f2fe;
+}
+
+.tf-btn-speed-upgrade {
+  border-color: var(--tf-accent-cta);
+  background: rgba(245, 158, 11, 0.16);
+  color: #fef3c7;
+}
+
+/* Action Buttons with Clear Text Labels */
+.tf-turmoil-drilling-screen .tf-drill-action-buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+  align-items: stretch;
+}
+
+.tf-turmoil-drilling-screen .tf-btn-undo,
+.tf-turmoil-drilling-screen .tf-btn-clear {
+  padding: 7px 10px;
+  font-size: 12px;
+  border-radius: var(--tf-radius-pill);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--tf-border-strong);
+  color: var(--tf-text);
+}
+
+.tf-turmoil-drilling-screen .tf-btn-confirm {
+  grid-column: 1 / -1;
+  padding: 9px 14px;
+  font-size: 13px;
+  border-radius: var(--tf-radius-pill);
+  background: linear-gradient(180deg, var(--tf-positive) 0%, #16a34a 100%);
+  border: 1px solid var(--tf-positive-bright);
+  color: #ffffff;
+  box-shadow: 0 4px 14px rgba(34, 197, 94, 0.3);
+}
+
+/* Multi-Well Manager */
+.tf-multiwell-box {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 7px 8px;
+  border-radius: var(--tf-radius-md);
+  background: rgba(8, 20, 38, 0.68);
+  border: 1px solid var(--tf-border);
+  min-height: 0;
+}
+
+.tf-multiwell-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--tf-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.tf-well-new-btn {
+  border: 1px solid var(--tf-return);
+  border-radius: var(--tf-radius-pill);
+  background: rgba(56, 189, 248, 0.14);
+  color: #bae6fd;
+  font-size: 10px;
+  font-weight: 800;
+  padding: 3px 9px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.tf-well-new-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.tf-well-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  max-height: 60px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  min-width: 0;
+}
+
+.tf-well-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 8px;
+  border-radius: var(--tf-radius-pill);
+  border: 1px solid var(--tf-border);
+  background: var(--tf-bg-panel);
+  font-size: 10px;
+  font-weight: 800;
+  white-space: nowrap;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+.tf-well-chip--active {
+  border-color: var(--tf-thermal);
+  color: #fed7aa;
+}
+
+.tf-well-chip--dry {
+  border-color: var(--tf-text-subtle);
+  color: var(--tf-text-muted);
+}
+
+.tf-well-chip--blocked {
+  border-color: var(--tf-danger);
+  color: #fecaca;
+}
+
+.tf-well-chip.is-selected {
+  box-shadow: 0 0 0 1px var(--tf-accent-cta-bright);
+}
+
+.tf-well-empty {
+  margin: 0;
+  font-size: 11px;
+  color: var(--tf-text-muted);
+  line-height: 1.3;
+}
+
+.tf-btn-proceed-prod {
+  width: 100%;
+  padding: 8px 12px;
+  font-size: 12px;
+}
+
+/* Subsurface Target Legend */
+.tf-drill-legend {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 4px 8px;
+  padding-top: 2px;
+}
+
+.tf-legend-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 9px;
+  font-weight: 800;
+  color: var(--tf-text-muted);
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+}
+
+.tf-legend-chip i {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.tf-legend-chip--magma i {
+  background: var(--tf-thermal);
+  box-shadow: 0 0 6px var(--tf-thermal);
+}
+
+.tf-legend-chip--aquifer i {
+  background: var(--tf-return);
+}
+
+.tf-legend-chip--mineral i {
+  background: var(--tf-mineral-purple);
+  border-radius: 2px;
+  transform: rotate(45deg);
+}
+
+.tf-legend-chip--fault i {
+  background: var(--tf-danger);
+  border-radius: 1px;
+}
+
+/* Animations */
+.tf-pipe-erupting {
+  animation: pipePulse 0.4s ease-in-out infinite alternate;
+}
+
+@keyframes pipePulse {
+  0% {
+    stroke-width: 2.2;
+    stroke: #f97316;
+  }
+  100% {
+    stroke-width: 3;
+    stroke: #fbbf24;
+  }
+}
+
+.tf-drill-head-vibrate {
+  animation: drillShake 0.12s ease-in-out infinite alternate;
+}
+
+@keyframes drillShake {
+  0% {
+    transform: translate(-0.18px, 0px);
+  }
+  100% {
+    transform: translate(0.18px, 0.2px);
+  }
+}
+
+.tf-spark {
+  animation: sparkFlash 0.25s ease-in-out infinite alternate;
+}
+
+.tf-spark-2 {
+  animation-delay: 0.12s;
+}
+
+@keyframes sparkFlash {
+  0% {
+    opacity: 0.35;
+    transform: scale(0.8);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1.25);
+  }
+}
+
+/* ==========================================================================
+   MOBILE PORTRAIT BREAKPOINT (390x844 & <= 768px)
+   ========================================================================== */
+@media (max-width: 768px) {
+  .tf-screen.tf-turmoil-drilling-screen {
+    padding: 5px 8px;
+    gap: 5px;
+  }
+
+  .tf-drilling-header {
+    padding: 4px 10px;
+    min-height: 34px;
+  }
+
+  .tf-drilling-badge-icon {
+    width: 22px;
+    height: 22px;
+    font-size: 11px;
+  }
+
+  .tf-drilling-title-copy h1 {
+    font-size: 13px;
+  }
+
+  .tf-drilling-title-copy span {
+    font-size: 9px;
+  }
+
+  .tf-tier-pill {
+    display: none;
+  }
+
+  .tf-snap-pill {
+    padding: 4px 8px;
+    font-size: 10px;
+  }
+
+  .tf-drilling-workspace {
+    grid-template-columns: 1fr;
+    grid-template-rows: minmax(0, 1fr) auto;
+    gap: 5px;
+  }
+
+  .tf-turmoil-drilling-screen .tf-drilling-controls-column {
+    height: auto;
+    padding: 6px 8px;
+    gap: 5px;
+  }
+
+  .tf-turmoil-drilling-screen .tf-drill-telemetry-badge {
+    padding: 4px 8px;
+    gap: 4px;
+  }
+
+  .tf-turmoil-drilling-screen .tf-telemetry-val {
+    font-size: 11px;
+  }
+
+  .tf-drill-validation {
+    padding: 3px 7px;
+    font-size: 10px;
+  }
+
+  .tf-btn-scan-car,
+  .tf-btn-speed-upgrade {
+    padding: 5px 6px;
+    font-size: 10px;
+  }
+
+  .tf-turmoil-drilling-screen .tf-drill-action-buttons {
+    grid-template-columns: auto auto minmax(0, 1fr);
+    gap: 5px;
+  }
+
+  .tf-turmoil-drilling-screen .tf-btn-undo,
+  .tf-turmoil-drilling-screen .tf-btn-clear {
+    padding: 6px 9px;
+    font-size: 11px;
+  }
+
+  .tf-turmoil-drilling-screen .tf-btn-confirm {
+    grid-column: auto;
+    padding: 6px 9px;
+    font-size: 11px;
+  }
+
+  .tf-multiwell-box {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: center;
+    padding: 4px 7px;
+    gap: 4px 6px;
+  }
+
+  .tf-multiwell-head {
+    gap: 6px;
+    flex-shrink: 0;
+  }
+
+  .tf-well-empty {
+    font-size: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .tf-well-list {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+    min-width: 0;
+    max-height: none;
+    gap: 4px;
+    scrollbar-width: none;
+  }
+
+  .tf-well-list::-webkit-scrollbar {
+    display: none;
+  }
+
+  .tf-well-chip {
+    padding: 3px 7px;
+    font-size: 10px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .tf-btn-proceed-prod {
+    grid-column: 1 / -1;
+    width: 100%;
+    padding: 6px 10px;
+    font-size: 11px;
+  }
+
+  .tf-drill-legend {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    gap: 4px;
+  }
+
+  .tf-legend-chip {
+    font-size: 8px;
+    gap: 3px;
+  }
+
+  .tf-legend-chip i {
+    width: 6px;
+    height: 6px;
+  }
+}

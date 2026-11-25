@@ -1,0 +1,1400 @@
+:root{font-family:Inter,ui-sans-serif,system-ui,sans-serif;color:#e8f0f7;background:#07111d;font-synthesis:none;text-rendering:optimizeLegibility;--ink:#e8f0f7;--muted:#8fa5b7;--line:#284154;--panel:#0c1b2a;--panel-light:#102638;--ember:#ff9867;--ice:#6bd6d0;--signal:#f4c66b}
+*{box-sizing:border-box}body{min-width:320px;min-height:100vh;margin:0;background:radial-gradient(circle at 50% -20%,#183a53 0,#07111d 52%);color:var(--ink)}button{font:inherit;color:inherit}button:focus-visible,summary:focus-visible{outline:2px solid var(--ice);outline-offset:3px}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.game-shell{min-height:100vh}.game-shell__content{width:min(1500px,100%);margin:auto;padding:28px 28px 60px}.tf-resource-bar{display:flex;align-items:center;gap:24px;min-height:74px;padding:12px max(28px,calc((100vw - 1500px)/2 + 28px));border-bottom:1px solid #294255;background:#091723f2;position:sticky;top:0;z-index:3;backdrop-filter:blur(14px)}.tf-brand-lockup{display:flex;align-items:center;gap:10px;min-width:180px;font-weight:700;letter-spacing:-.03em}.tf-brand-mark{display:grid;place-items:center;width:34px;height:34px;border:1px solid var(--ember);border-radius:10px;color:var(--ember);font-size:11px;letter-spacing:.08em}.tf-resource-list{display:flex;flex:1;justify-content:center;gap:10px}.tf-resource{display:flex;align-items:center;gap:9px;min-width:130px;padding:7px 11px;border-left:1px solid var(--line)}.tf-resource-icon{color:var(--muted);font-size:18px}.tf-resource-copy{display:grid;gap:2px}.tf-resource small,.tf-resource em{color:var(--muted);font-size:10px;font-style:normal}.tf-resource strong{font-size:14px}.tf-tone-ember .tf-resource-icon{color:var(--ember)}.tf-tone-ice .tf-resource-icon{color:var(--ice)}.tf-tone-signal .tf-resource-icon{color:var(--signal)}.tf-avatar-button{width:38px;height:38px;border:1px solid var(--line);border-radius:50%;background:#112a3d;color:var(--ice);font-size:11px;cursor:pointer}.tf-avatar-button span{display:block;color:var(--muted);font-size:10px}
+.game-intro{display:flex;justify-content:space-between;align-items:end;gap:24px;margin:8px 0 30px}.game-intro h1{max-width:700px;margin:5px 0 10px;font-family:Georgia,serif;font-size:clamp(32px,4vw,58px);font-weight:500;letter-spacing:-.055em;line-height:1}.game-intro p:not(.game-shell__eyebrow){max-width:650px;margin:0;color:var(--muted);font-size:15px;line-height:1.6}.game-shell__eyebrow,.tf-kicker{margin:0;color:var(--ice);font-size:10px;font-weight:800;letter-spacing:.16em;text-transform:uppercase}.game-intro__status{max-width:320px;padding:12px 14px;border:1px solid #29495b;border-radius:10px;color:#b4c5d1;font-size:12px;line-height:1.45;background:#0b2030}.tf-status-dot{display:inline-block;width:7px;height:7px;margin-right:6px;border-radius:50%;background:var(--ember);box-shadow:0 0 12px var(--ember)}
+.game-grid{display:grid;gap:18px}.game-grid--auction{grid-template-columns:minmax(0,1.65fr) minmax(310px,.75fr);align-items:start}.game-grid--operations{grid-template-columns:minmax(0,1.65fr) minmax(310px,.75fr);margin-top:18px}.game-sidebar{display:grid;gap:18px}.tf-panel,.tf-map-panel{border:1px solid var(--line);border-radius:14px;background:linear-gradient(145deg,#102638,#0b1a29 68%);box-shadow:0 18px 55px #0002;overflow:hidden}.tf-panel{padding:20px}.tf-panel-heading,.tf-map-heading{display:flex;align-items:start;justify-content:space-between;gap:16px}.tf-panel h2,.tf-map-heading h2{margin:5px 0 0;font-size:19px;letter-spacing:-.03em}.tf-step-label,.tf-live-pill{color:var(--muted);font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase}.tf-live-pill{color:var(--ember)}.tf-live-pill i{display:inline-block;width:6px;height:6px;margin-right:5px;border-radius:50%;background:var(--ember);box-shadow:0 0 8px var(--ember)}
+.tf-auction-meta{display:flex;justify-content:space-between;gap:12px;margin:18px 0 12px;color:var(--muted);font-size:11px}.tf-auction-meta strong{color:#b3c4d1;font-weight:500}.tf-auction-meta b{color:var(--signal);font-size:14px}.tf-parcel-list{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.tf-parcel{position:relative;min-width:0;border:1px solid #294557;border-radius:10px;background:#0b1b2a;cursor:pointer;transition:.2s transform,.2s border-color,.2s background}.tf-parcel:hover,.tf-parcel.is-selected{border-color:var(--ember);background:#11283a;transform:translateY(-2px)}.tf-parcel-visual{height:86px;position:relative;overflow:hidden;background:linear-gradient(135deg,#a45e4c,#272f3a 55%,#15566a)}.tf-contour{position:absolute;width:130%;height:50px;left:-10%;border:1px solid #ffc07d66;border-radius:50%}.contour-one{top:30px;transform:rotate(-12deg)}.contour-two{top:48px;transform:rotate(12deg);border-color:#76d9da66}.tf-vent{position:absolute;right:25%;bottom:10px;width:9px;height:9px;border-radius:50%;background:#ffbc70;box-shadow:0 0 16px 4px #ff8b56}.tf-parcel-number{position:absolute;left:10px;top:8px;color:#fff9;font:700 12px Georgia,serif}.tf-parcel-body{padding:12px}.tf-parcel-title{display:flex;justify-content:space-between;gap:6px}.tf-parcel-region,.tf-parcel p,.tf-parcel small{color:var(--muted);font-size:9px}.tf-parcel h3{margin:3px 0 0;font-size:13px}.tf-parcel p{margin:9px 0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.tf-bid-trend{color:var(--ember);font-size:16px}.tf-parcel-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;padding:9px 0;border-top:1px solid #ffffff0d;border-bottom:1px solid #ffffff0d}.tf-parcel-stats span{display:grid;gap:3px}.tf-parcel-stats strong{font-size:11px}.tf-parcel-foot{display:flex;justify-content:space-between;align-items:end;padding-top:10px;font-size:10px}.tf-parcel-foot strong{display:block;color:var(--signal);font-size:14px}.tf-parcel-foot small{font-size:9px}.tf-parcel-time{color:var(--ember);font-variant-numeric:tabular-nums}.tf-parcel-actions{display:flex;gap:6px;padding:0 12px 12px}.tf-button{border:1px solid var(--line);border-radius:7px;padding:9px 12px;cursor:pointer;font-size:11px;font-weight:700}.tf-button-primary{border-color:var(--ember);background:var(--ember);color:#211514}.tf-button-secondary{border-color:var(--ice);background:#153d47;color:var(--ice)}.tf-button-quiet{background:#ffffff08;color:#bdcbd5}.tf-button:disabled{cursor:not-allowed;opacity:.4}.tf-full-button{width:100%;margin-top:16px}.tf-helper-text,.tf-panel-intro{color:var(--muted);font-size:11px;line-height:1.5}.tf-helper-text{margin:14px 0 0}.tf-panel-intro{margin:16px 0}
+.tf-survey-tools{display:grid;gap:8px}.tf-survey-tool{display:grid;grid-template-columns:32px 1fr auto;align-items:center;gap:9px;width:100%;padding:10px;border:1px solid #294557;border-radius:8px;background:#0b1b2a;text-align:left;cursor:pointer}.tf-survey-tool.is-selected{border-color:var(--ice);background:#12333d}.tf-tool-icon{display:grid;place-items:center;width:28px;height:28px;border:1px solid #376070;border-radius:7px;color:var(--ice)}.tf-survey-tool span:nth-child(2){display:grid;gap:3px}.tf-survey-tool strong{font-size:11px}.tf-survey-tool small,.tf-survey-tool em{color:var(--muted);font-size:9px;font-style:normal}.tf-survey-tool em{color:var(--ice)}.tf-survey-tool>b{color:var(--signal);font-size:11px}
+.tf-map-panel{padding:0}.tf-map-heading{padding:18px 20px}.tf-map-tools{display:flex;align-items:center;gap:5px;color:var(--muted);font-size:10px}.tf-map-tool{border:1px solid var(--line);border-radius:5px;padding:5px 8px;background:#ffffff08;color:inherit;cursor:pointer;font-size:11px}.tf-map-tool.is-active{border-color:var(--ice);color:var(--ice)}.tf-map-viewport{position:relative;aspect-ratio:1.68;min-height:340px;overflow:hidden;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:#1c2833}.tf-underground-map{display:block;width:100%;height:100%;cursor:crosshair}.tf-underground-map text{fill:#d8e4e9a8;font:700 2px ui-monospace,monospace;letter-spacing:.1em}.tf-fracture{fill:none;stroke:#ffb96c88;stroke-width:.6;stroke-dasharray:1 1}.tf-reservoir ellipse{stroke:#ffb16b99;stroke-width:.35}.tf-reservoir-known{opacity:.7}.tf-reservoir-suspected{opacity:.4;stroke-dasharray:1 1}.tf-reservoir-active{filter:drop-shadow(0 0 3px #ff8e5b)}.tf-pipe{fill:none;stroke-linecap:round;stroke-linejoin:round}.tf-pipe-hot{stroke:#f18b55;stroke-width:1.3}.tf-pipe-return{stroke:#55c9d2;stroke-width:1}.tf-pipe-export{stroke:#ffca70;stroke-width:1}.tf-pipe-flowing{stroke-dasharray:2 1;animation:flow 1.2s linear infinite}.tf-well circle{fill:#ffb05f;stroke:#fff2c5;stroke-width:.5}.tf-well text{fill:#fff!important}.tf-surface-assets rect{fill:#172b39;stroke:#ffb260;stroke-width:.4}.tf-surface-assets path{fill:none;stroke:#ffb260;stroke-width:.5}.tf-surface-assets text{font-size:1.5px}.tf-map-legend{display:flex;flex-wrap:wrap;gap:16px;padding:12px 20px;color:var(--muted);font-size:10px}.tf-map-legend i{display:inline-block;width:8px;height:3px;margin-right:5px;border-radius:5px;background:var(--ember)}.tf-map-legend .legend-return{background:var(--ice)}.tf-map-legend .legend-reservoir{width:8px;height:8px;border-radius:50%;background:#f4aa65}.tf-map-legend .legend-drill{background:#fff}.tf-drilling-overlay{position:absolute;inset:auto 12px 12px;z-index:1;border:1px solid #547381;border-radius:8px;padding:10px;background:#071521e8;backdrop-filter:blur(8px)}.tf-path-toolbar,.tf-path-actions{display:flex;justify-content:space-between;align-items:center;gap:10px}.tf-path-toolbar strong{display:block;margin-top:3px;font-size:11px}.tf-cost-preview{color:var(--muted);font-size:10px}.tf-cost-preview b{color:var(--signal)}.tf-path-svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}.tf-suggested-path{fill:none;stroke:#7ce0dd88;stroke-width:1;stroke-dasharray:2 2}.tf-drill-path{fill:none;stroke:#fff;stroke-width:1.2}.tf-waypoints circle{fill:#fff;stroke:#0c1b2a;stroke-width:.6}.tf-path-actions{position:relative;margin-top:12px;color:var(--muted);font-size:9px}.tf-path-actions>span{display:flex;gap:6px;align-items:center}.tf-path-key{display:inline-block;width:13px;border-top:2px solid #fff}.tf-path-key.suggested{border-color:var(--ice);border-style:dashed}
+.tf-market-price{display:grid;gap:3px;margin:18px 0 8px}.tf-market-price span,.tf-market-price small{color:var(--muted);font-size:10px}.tf-market-price strong{font:500 34px Georgia,serif;color:var(--signal)}.tf-market-signal{color:var(--ice);font-size:12px;font-weight:700}.tf-market-chart{display:block;width:100%;height:88px;overflow:visible}.tf-chart-band{fill:#f0a86d18}.tf-chart-line{fill:none;stroke:var(--signal);stroke-width:1.7}.tf-chart-marker{stroke:#f5d79e66;stroke-dasharray:2 2}.tf-market-chart text{fill:var(--muted);font:700 3px ui-monospace,monospace}.tf-storage-readout{margin-top:8px}.tf-storage-readout div:first-child{display:flex;justify-content:space-between;align-items:end;color:var(--muted);font-size:10px}.tf-storage-readout strong{color:var(--ice);font-size:14px}.tf-storage-readout small{color:var(--muted);font-size:10px;font-weight:400}.tf-storage-meter,.tf-reserve-meter{display:block;height:5px;margin-top:7px;overflow:hidden;border-radius:10px;background:#1c3b4c}.tf-storage-meter span,.tf-reserve-meter i{display:block;height:100%;border-radius:10px;background:linear-gradient(90deg,var(--ice),#aadf99)}.tf-market-actions{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:16px}.tf-market-actions .tf-button{padding-inline:6px}
+.tf-equipment-list{display:grid;gap:5px;margin-top:16px}.tf-equipment-item{display:grid;grid-template-columns:28px 1fr auto;align-items:center;gap:9px;border:0;border-radius:7px;padding:8px;background:transparent;text-align:left;cursor:pointer}.tf-equipment-item:hover,.tf-equipment-item.is-selected{background:#ffffff08}.tf-equipment-item.is-locked{opacity:.42}.tf-equipment-icon{color:var(--ember);font-size:18px}.tf-equipment-item span:nth-child(2){display:grid;gap:3px}.tf-equipment-item strong{font-size:11px}.tf-equipment-item small{color:var(--muted);font-size:9px}.tf-item-arrow{color:var(--muted)}.tf-upgrade-detail{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:10px;padding-top:12px;border-top:1px solid #ffffff0d}.tf-upgrade-detail div{display:grid;gap:3px}.tf-mini-label{color:var(--muted);font-size:9px}.tf-upgrade-detail strong{color:var(--ice);font-size:11px}
+.game-bottom-row{display:flex;align-items:center;gap:22px;margin:18px 0}.tf-operating-controls{display:flex;align-items:center;gap:10px;padding:8px 10px;border:1px solid var(--line);border-radius:9px;background:#0c1b2a}.tf-control-play{display:grid;place-items:center;width:28px;height:28px;border:0;border-radius:6px;background:var(--ice);color:#092027;cursor:pointer;font-size:11px}.tf-control-status{font-size:11px}.tf-speed-group{display:flex;gap:3px;margin-left:5px}.tf-speed-group button{border:0;border-radius:4px;padding:5px 6px;background:transparent;color:var(--muted);cursor:pointer;font-size:10px}.tf-speed-group button.is-active{background:#244a53;color:var(--ice)}.game-bottom-row__readout{display:flex;align-items:center;gap:9px;color:var(--muted);font-size:11px}.game-bottom-row__readout strong{color:var(--ice)}.tf-reserve-meter{width:100px;margin:0}.game-bottom-row__readout small,.game-bottom-row__seed{color:var(--muted);font-size:10px}.game-bottom-row__seed{margin-left:auto}.settlement-drawer{border-top:1px solid var(--line);padding-top:16px;color:var(--muted);font-size:11px}.settlement-drawer summary{cursor:pointer}.tf-settlement{max-width:440px;margin:18px auto;padding:26px;border:1px solid var(--line);border-radius:14px;background:#0c1b2a}.tf-settlement h2{margin:5px 0;font:500 28px Georgia,serif;color:var(--ink)}.tf-settlement p{color:var(--muted);font-size:12px;line-height:1.5}.tf-settlement-lines{margin:20px 0}.tf-settlement-line{display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid #ffffff0d;font-size:12px}.tf-settlement-positive strong{color:var(--ice)}.tf-settlement-negative strong{color:var(--ember)}
+@keyframes flow{to{stroke-dashoffset:-6}}@media(max-width:1000px){.tf-resource-list{justify-content:flex-start;overflow:auto}.tf-resource{min-width:112px}.game-intro{align-items:start;flex-direction:column}.game-intro__status{max-width:none;width:100%}.game-grid--auction,.game-grid--operations{grid-template-columns:1fr}.game-sidebar{grid-template-columns:1fr 1fr}}@media(max-width:650px){.tf-resource-bar{gap:12px;padding:10px 14px}.tf-brand-lockup{min-width:auto}.tf-brand-lockup>span:last-child{display:none}.tf-resource-list{gap:5px}.tf-resource{min-width:95px;padding:5px 7px}.tf-resource:nth-child(n+3){display:none}.game-shell__content{padding:22px 14px 40px}.game-intro h1{font-size:39px}.tf-panel{padding:14px}.tf-parcel-list{grid-template-columns:1fr}.tf-parcel-visual{height:70px}.tf-map-viewport{min-height:280px}.game-sidebar{grid-template-columns:1fr}.game-bottom-row{align-items:start;flex-wrap:wrap}.game-bottom-row__seed{width:100%;margin-left:0}.tf-market-actions{grid-template-columns:1fr}.tf-map-legend{gap:8px}}
+ .tf-live-pill--closed{color:var(--ice)}.tf-panel--disabled{opacity:.82}.tf-survey-tool:disabled{cursor:not-allowed;opacity:.55}
+ .tf-reset-button{display:block;margin-top:10px;padding:6px 9px;font-size:10px}
+/* Decision-first round flow */
+.tf-phase-rail{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin:0 0 12px;padding:7px;border:1px solid var(--line);border-radius:12px;background:#091824}.tf-phase-step{display:flex;align-items:center;gap:8px;min-width:0;padding:8px 10px;border-radius:8px;color:#607b8c}.tf-phase-number{display:grid;place-items:center;width:24px;height:24px;flex:0 0 24px;border:1px solid currentColor;border-radius:50%;font-size:9px;font-weight:800}.tf-phase-copy{display:grid;gap:2px;min-width:0}.tf-phase-copy strong{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:10px}.tf-phase-copy small{font-size:9px;color:inherit}.tf-phase-step--current{background:#143644;color:var(--ice)}.tf-phase-step--current .tf-phase-number{border-color:var(--ice);background:var(--ice);color:#092027}.tf-phase-step--complete{color:#85b89b}.tf-phase-step--complete .tf-phase-number{background:#17352e;border-color:#6caa8b}.tf-next-action{display:flex;gap:14px;align-items:flex-start;margin:0 0 18px;padding:18px 20px;border:1px solid #345569;border-radius:14px;background:linear-gradient(100deg,#102d3b,#0c1b29 70%);box-shadow:0 14px 34px #0002}.tf-next-action__marker{display:grid;place-items:center;width:34px;height:34px;flex:0 0 34px;border-radius:10px;background:#f4bb6e;color:#17212b;font-size:21px;font-weight:800}.tf-next-action__copy{display:grid;gap:5px}.tf-next-action h2{margin:0;font-size:19px;letter-spacing:-.03em}.tf-next-action p{max-width:720px;margin:1px 0 4px;color:#a9bdc9;font-size:12px;line-height:1.5}.tf-next-action__cue{color:var(--signal);font-size:11px}.tf-next-action__notice{color:#7f9aaa;font-size:10px}.tf-phase-workspace{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(280px,.7fr);gap:18px;align-items:start}.tf-phase-workspace--auction{grid-template-columns:minmax(0,1fr) 280px}.tf-phase-workspace--survey{grid-template-columns:minmax(0,.8fr) minmax(0,1.5fr)}.tf-phase-workspace--drill{grid-template-columns:minmax(0,1.6fr) 280px}.tf-phase-workspace--settled{display:block;max-width:620px;margin:auto}.tf-phase-main,.tf-phase-aside{min-width:0;display:grid;gap:18px}.tf-side-note{padding:20px;border:1px solid var(--line);border-radius:14px;background:#0c1b2a}.tf-side-note strong{display:block;margin:10px 0 7px;font-size:16px}.tf-side-note p{margin:0;color:var(--muted);font-size:12px;line-height:1.55}.tf-settle-button{display:block;margin:18px auto 0;min-width:180px}.tf-reset-button{margin-top:10px;padding:6px 9px;font-size:10px}.tf-live-pill--closed{color:var(--ice)}.tf-panel--disabled{opacity:.82}.tf-survey-tool:disabled{cursor:not-allowed;opacity:.55}.tf-button{transition:transform 160ms cubic-bezier(.23,1,.32,1),background-color 160ms ease,border-color 160ms ease}.tf-button:active{transform:scale(.97)}
+@media(max-width:900px){.tf-phase-workspace,.tf-phase-workspace--auction,.tf-phase-workspace--survey,.tf-phase-workspace--drill{grid-template-columns:1fr}.tf-phase-aside{grid-template-columns:1fr 1fr}.tf-phase-workspace--survey .tf-phase-aside{order:-1}.tf-next-action{margin-bottom:14px}}
+@media(max-width:620px){.tf-phase-rail{gap:3px;padding:4px}.tf-phase-step{justify-content:center;padding:6px 3px}.tf-phase-copy{display:none}.tf-phase-number{width:23px;height:23px;flex-basis:23px}.tf-next-action{padding:15px}.tf-next-action h2{font-size:17px}.tf-phase-aside{grid-template-columns:1fr}.tf-phase-workspace--survey .tf-phase-aside{order:0}}
+
+/* Turmoil-style drilling: one readable player tunnel, with the recommendation kept as a marker. */
+.tf-map-viewport{aspect-ratio:1.32}
+.tf-drill-path{fill:none;stroke:#ff9b5f;stroke-width:1.35;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 0 2px #ff9b5f)}
+.tf-drill-waypoint{fill:#ffd18b;stroke:#18222b;stroke-width:.7}
+.tf-drill-target{fill:none;stroke:#7ce0dd;stroke-width:1;stroke-dasharray:1.5 1.5;opacity:.9}
+.tf-path-help{margin:8px 0 0;color:var(--muted);font-size:10px;line-height:1.4}
+.tf-path-depth{margin-left:7px;color:var(--signal);font-variant-numeric:tabular-nums}
+.tf-operation-tutorial{padding:16px;border:1px solid #547381;border-radius:8px;background:linear-gradient(145deg,#102532,#0b1822);box-shadow:0 12px 30px #0003}
+.tf-tutorial-steps{display:grid;gap:6px;margin:14px 0 0;padding:0;list-style:none}
+.tf-tutorial-steps li{border:1px solid var(--line);border-radius:6px;transition:border-color 160ms ease,background-color 160ms ease}
+.tf-tutorial-steps li.is-done{border-color:#70c9ae;background:#70c9ae12}
+.tf-tutorial-steps button{display:grid;grid-template-columns:24px 1fr;gap:0 8px;width:100%;padding:9px;text-align:left;color:var(--text);background:none;border:0;cursor:pointer}
+.tf-tutorial-steps button:disabled{cursor:not-allowed;opacity:.55}
+.tf-tutorial-steps button>span{grid-row:span 2;display:grid;place-items:center;width:21px;height:21px;border-radius:50%;background:#ffffff12;color:var(--signal);font:700 10px ui-monospace,monospace}
+.tf-tutorial-steps strong{font-size:11px}.tf-tutorial-steps small{margin-top:3px;color:var(--muted);font-size:10px;line-height:1.35}
+.tf-map-selection{display:flex;align-items:center;gap:10px;margin-top:10px;padding:10px 12px;border-left:2px solid var(--signal);background:#f4aa6510;color:var(--muted);font-size:11px}
+.tf-map-selection strong{color:var(--text)}
+.tf-map-selection span{line-height:1.35}
+.tf-well[role=button],.tf-reservoir[role=button]{cursor:pointer}
+.tf-underground-map{user-select:none}
+.tf-reservoir-hit,.tf-well-hit{fill:transparent;stroke:transparent;pointer-events:all}
+.tf-reservoir[role=button]:hover ellipse,.tf-reservoir[role=button]:focus ellipse{filter:drop-shadow(0 0 5px #ffbd68)}
+.tf-well[role=button]:focus,.tf-reservoir[role=button]:focus{outline:1px solid var(--signal);outline-offset:2px}
+.tf-reservoir.is-selected ellipse{filter:drop-shadow(0 0 7px #7ce0dd);stroke:#7ce0dd;stroke-width:.9}
+.tf-reservoir.is-selected .tf-reservoir-hit{stroke:#7ce0dd88;stroke-width:.7;stroke-dasharray:1.5 1.5}
+.tf-well.is-selected circle:first-child{filter:drop-shadow(0 0 5px #ffd18b)}
+.tf-drill-target-node{cursor:pointer}
+.tf-drill-target-hit{fill:transparent;stroke:transparent;pointer-events:all}
+.tf-drill-target-ring{fill:none;stroke:#7ce0dd;stroke-width:.8;stroke-dasharray:1.5 1.5;opacity:.8}
+.tf-drill-target-core{fill:#7ce0dd;stroke:#d8ffff;stroke-width:.4}
+.tf-drill-target-node text{fill:#b9f4ee!important;font-size:1.7px!important}
+.tf-drill-target-node:hover .tf-drill-target-ring,.tf-drill-target-node.is-selected .tf-drill-target-ring{stroke:#ffd18b;stroke-width:1.2;stroke-dasharray:none;filter:drop-shadow(0 0 3px #ffd18b)}
+.tf-reservoir.is-selected ellipse{filter:drop-shadow(0 0 7px #7ce0dd);stroke:#7ce0dd;stroke-width:.9}
+.tf-reservoir.is-selected .tf-reservoir-hit{stroke:#7ce0dd88;stroke-width:.7;stroke-dasharray:1.5 1.5}
+.tf-well.is-selected circle:first-child{filter:drop-shadow(0 0 5px #ffd18b)}
+
+
+/* ==========================================================================
+   THERMAL FRONTIER: 6-STAGE SCREEN EXPERIENCE & HIGH-FIDELITY REFERENCE STYLES
+   ========================================================================== */
+
+/* Universal Screen Header Capsule */
+.tf-screen-header-capsule {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px 20px;
+  margin-bottom: 20px;
+  border: 1px solid #334155;
+  border-radius: 9999px;
+  background: linear-gradient(90deg, #0f172a 0%, #1e293b 100%);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+}
+
+.tf-capsule-badge {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.tf-capsule-icon {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #1e293b;
+  border: 1px solid #475569;
+  font-size: 20px;
+}
+
+.tf-capsule-title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 800;
+  color: #f8fafc;
+  letter-spacing: -0.02em;
+}
+
+.tf-capsule-subtitle {
+  display: block;
+  font-size: 11px;
+  color: #94a3b8;
+  font-weight: 500;
+}
+
+.tf-header-capsule-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.tf-timer-capsule {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 14px;
+  border-radius: 9999px;
+  background: #09131d;
+  border: 1px solid #ff5722;
+  color: #ff9800;
+  font-family: ui-monospace, monospace;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.tf-cash-chip {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 9999px;
+  background: #1e293b;
+  border: 1px solid #f59e0b;
+  color: #fbbf24;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.tf-gold-star {
+  color: #fbbf24;
+}
+
+.tf-orbit-btn {
+  border-color: #38bdf8 !important;
+  color: #38bdf8 !important;
+}
+
+.tf-quick-nav-row {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+/* --------------------------------------------------------------------------
+   SCREEN 1: PLANET SELECT / ROUND START
+   -------------------------------------------------------------------------- */
+.tf-planet-screen {
+  display: grid;
+  gap: 20px;
+}
+
+.tf-brand-lockup-hero {
+  text-align: center;
+  margin: 10px 0 20px;
+}
+
+.tf-logo-container {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 12px;
+}
+
+.tf-logo-thermal {
+  font-family: ui-sans-serif, system-ui, sans-serif;
+  font-size: clamp(32px, 5vw, 56px);
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  color: #f8fafc;
+  text-shadow: 0 0 20px rgba(56, 189, 248, 0.4);
+}
+
+.tf-logo-peak {
+  color: #38bdf8;
+  font-size: 0.8em;
+  margin: 0 1px;
+}
+
+.tf-logo-frontier {
+  font-family: ui-sans-serif, system-ui, sans-serif;
+  font-size: clamp(32px, 5vw, 56px);
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  background: linear-gradient(180deg, #fbbf24 0%, #f97316 60%, #c2410c 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 4px 10px rgba(249, 115, 22, 0.4));
+}
+
+.tf-logo-subtitle {
+  margin: 6px 0 0;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #94a3b8;
+}
+
+.tf-planet-stage {
+  display: grid;
+  grid-template-columns: 280px minmax(0, 1fr) 140px;
+  gap: 24px;
+  align-items: center;
+  min-height: 440px;
+  padding: 24px;
+  border: 1px solid #334155;
+  border-radius: 20px;
+  background: radial-gradient(circle at 50% 50%, #0c1b2c 0%, #030712 100%);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+  position: relative;
+  overflow: hidden;
+}
+
+.tf-planet-card {
+  padding: 22px;
+  border-radius: 16px;
+  background: rgba(15, 23, 42, 0.85);
+  border: 1px solid #334155;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.tf-card-sector-tag {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  color: #f59e0b;
+}
+
+.tf-planet-card-name {
+  margin: 2px 0 0;
+  font-size: 26px;
+  font-weight: 800;
+  color: #f8fafc;
+}
+
+.tf-planet-specs {
+  display: grid;
+  gap: 10px;
+  padding: 12px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.tf-spec-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+}
+
+.tf-spec-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #94a3b8;
+}
+
+.tf-spec-value--thermal {
+  color: #fbbf24;
+}
+
+.tf-spec-value--resources {
+  color: #38bdf8;
+}
+
+.tf-spec-value--terrain {
+  color: #4ade80;
+}
+
+.tf-planet-card-desc {
+  margin: 0;
+  font-size: 11px;
+  color: #94a3b8;
+  line-height: 1.5;
+}
+
+.tf-btn-start-round {
+  width: 100%;
+  padding: 12px 20px;
+  border-radius: 9999px;
+  border: 0;
+  background: linear-gradient(180deg, #fde047 0%, #f59e0b 100%);
+  color: #1e1b4b;
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(245, 158, 11, 0.4);
+  transition: transform 0.16s ease, filter 0.16s ease;
+}
+
+.tf-btn-start-round:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.08);
+}
+
+.tf-pagination-dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.tf-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: 0;
+  background: #334155;
+  cursor: pointer;
+  padding: 0;
+}
+
+.tf-dot.is-active {
+  background: #fbbf24;
+  box-shadow: 0 0 8px #fbbf24;
+}
+
+.tf-planet-visual-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  min-height: 380px;
+}
+
+.tf-space-backdrop {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.tf-star {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: #ffffff;
+  border-radius: 50%;
+  box-shadow: 0 0 4px #ffffff;
+}
+
+.tf-star-1 { top: 15%; left: 20%; }
+.tf-star-2 { top: 25%; right: 18%; width: 3px; height: 3px; }
+.tf-star-3 { bottom: 20%; left: 15%; }
+.tf-star-4 { bottom: 15%; right: 25%; }
+.tf-star-5 { top: 60%; left: 35%; width: 3px; height: 3px; }
+
+.tf-planet-sphere-wrap {
+  width: 320px;
+  height: 320px;
+  animation: floatPlanet 6s ease-in-out infinite;
+}
+
+@keyframes floatPlanet {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-10px) rotate(1deg); }
+}
+
+.tf-planet-svg {
+  width: 100%;
+  height: 100%;
+}
+
+.tf-cloud-band {
+  animation: cloudDrift 16s linear infinite alternate;
+}
+
+@keyframes cloudDrift {
+  0% { transform: translateX(-4px); }
+  100% { transform: translateX(8px); }
+}
+
+.tf-smoke {
+  animation: smokeRise 2s ease-out infinite;
+}
+
+.tf-smoke-2 { animation-delay: 0.6s; }
+.tf-smoke-3 { animation-delay: 1.2s; }
+
+@keyframes smokeRise {
+  0% { transform: translateY(0px) scale(0.8); opacity: 0.6; }
+  100% { transform: translateY(-20px) scale(1.6); opacity: 0; }
+}
+
+.tf-hexagon-selector-column {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+}
+
+.tf-hex-column-label {
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  color: #64748b;
+  margin-bottom: 2px;
+}
+
+.tf-hex-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 6px;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.tf-hex-btn:hover,
+.tf-hex-btn.is-active {
+  background: rgba(30, 41, 59, 0.6);
+  border-color: var(--hex-accent, #38bdf8);
+}
+
+.tf-hex-shape {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  background: #1e293b;
+  border: 1px solid var(--hex-accent, #38bdf8);
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+}
+
+.tf-hex-btn.is-active .tf-hex-shape {
+  background: var(--hex-accent, #38bdf8);
+  box-shadow: 0 0 12px var(--hex-accent, #38bdf8);
+}
+
+.tf-hex-name {
+  font-size: 10px;
+  font-weight: 700;
+  color: #94a3b8;
+}
+
+.tf-hex-btn.is-active .tf-hex-name {
+  color: #f8fafc;
+}
+
+/* --------------------------------------------------------------------------
+   SCREEN 2: LAND AUCTION (2x3 Isometric Grid & Bidding Control)
+   -------------------------------------------------------------------------- */
+.tf-land-auction-screen {
+  padding: 24px;
+}
+
+.tf-auction-main-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.8fr) 300px;
+  gap: 24px;
+  align-items: start;
+}
+
+.tf-parcels-grid-2x3 {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.tf-isometric-parcel-card {
+  position: relative;
+  border-radius: 14px;
+  background: linear-gradient(145deg, #1e293b 0%, #0f172a 100%);
+  border: 1px solid #334155;
+  padding: 12px;
+  cursor: pointer;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s ease, box-shadow 0.2s ease;
+  overflow: hidden;
+}
+
+.tf-isometric-parcel-card:hover {
+  transform: translateY(-4px);
+  border-color: #f59e0b;
+}
+
+.tf-isometric-parcel-card.is-selected {
+  border-color: #f59e0b;
+  background: linear-gradient(145deg, #24354c 0%, #131f33 100%);
+  box-shadow: 0 0 0 2px #f59e0b, 0 12px 28px rgba(0, 0, 0, 0.5);
+  transform: translateY(-4px);
+}
+
+.tf-parcel-num-badge {
+  position: absolute;
+  top: 10px;
+  left: 12px;
+  padding: 2px 7px;
+  border-radius: 6px;
+  background: rgba(15, 23, 42, 0.85);
+  border: 1px solid #475569;
+  font-size: 11px;
+  font-weight: 800;
+  color: #f8fafc;
+  z-index: 2;
+}
+
+.tf-parcel-isometric-art {
+  height: 96px;
+  width: 100%;
+  position: relative;
+}
+
+.tf-isometric-svg {
+  width: 100%;
+  height: 100%;
+}
+
+.tf-iso-tile-base {
+  fill: #1e3a4e;
+  stroke: #475569;
+  stroke-width: 1;
+}
+
+.tf-iso-extrude-left {
+  fill: #0f2331;
+}
+
+.tf-iso-extrude-right {
+  fill: #172d3d;
+}
+
+.tf-parcel-info {
+  display: grid;
+  gap: 5px;
+  margin-top: 8px;
+}
+
+.tf-parcel-card-title {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 800;
+  color: #f8fafc;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tf-parcel-clues {
+  display: flex;
+  gap: 8px;
+  font-size: 10px;
+  color: #94a3b8;
+}
+
+.tf-parcel-bid-badge {
+  font-size: 11px;
+  color: #94a3b8;
+  margin-top: 2px;
+}
+
+.tf-parcel-bid-badge strong {
+  color: #fbbf24;
+}
+
+/* Right Bidding Panel */
+.tf-bidding-panel {
+  display: grid;
+  gap: 16px;
+  padding: 20px;
+  border-radius: 16px;
+  background: #0f172a;
+  border: 1px solid #334155;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+}
+
+.tf-bidding-target-title {
+  margin: 4px 0 2px;
+  font-size: 17px;
+  font-weight: 800;
+  color: #f8fafc;
+}
+
+.tf-bidding-target-desc {
+  margin: 0;
+  font-size: 11px;
+  color: #94a3b8;
+  line-height: 1.4;
+}
+
+.tf-bid-display-cards {
+  display: grid;
+  gap: 10px;
+}
+
+.tf-bid-display-box {
+  padding: 12px 14px;
+  border-radius: 10px;
+  background: #1e293b;
+  border: 1px solid #334155;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.tf-bid-box-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: #94a3b8;
+}
+
+.tf-bid-box-val {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.tf-bid-box-val strong {
+  font-size: 18px;
+  font-weight: 900;
+  color: #fbbf24;
+}
+
+.tf-stepper-control {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.tf-stepper-value-wrap {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.tf-stepper-number {
+  font-size: 18px;
+  font-weight: 900;
+  color: #4ade80;
+}
+
+.tf-stepper-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.tf-btn-step {
+  width: 20px;
+  height: 16px;
+  border-radius: 4px;
+  border: 1px solid #475569;
+  background: #334155;
+  color: #f8fafc;
+  font-size: 8px;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  padding: 0;
+}
+
+.tf-btn-step:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.tf-btn-place-bid {
+  width: 100%;
+  padding: 14px 20px;
+  border-radius: 9999px;
+  border: 0;
+  background: linear-gradient(180deg, #22c55e 0%, #16a34a 100%);
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(34, 197, 94, 0.35);
+  transition: transform 0.16s ease, filter 0.16s ease;
+}
+
+.tf-btn-place-bid:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.08);
+}
+
+.tf-btn-place-bid:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.tf-btn-quick-bid {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  background: #ff5722 !important;
+  border-color: #ff5722 !important;
+  color: #ffffff !important;
+  font-weight: 700;
+}
+
+.tf-btn-withdraw-quiet {
+  width: 100%;
+  padding: 8px;
+  border-radius: 8px;
+}
+
+.tf-btn-proceed-survey {
+  width: 100%;
+  padding: 12px;
+  border-radius: 9999px;
+  border: 0;
+  background: linear-gradient(180deg, #38bdf8 0%, #0284c7 100%);
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.tf-bottom-trophy-banner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 24px;
+  padding: 14px 24px;
+  border-radius: 9999px;
+  background: linear-gradient(90deg, #78350f 0%, #b45309 50%, #78350f 100%);
+  border: 1px solid #f59e0b;
+  color: #fef3c7;
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  box-shadow: 0 8px 24px rgba(180, 83, 9, 0.3);
+}
+
+.tf-trophy-icon {
+  font-size: 20px;
+}
+
+/* --------------------------------------------------------------------------
+   SCREEN 3: SURFACE SURVEY (Hexagonal Map, Rover & Light Cone)
+   -------------------------------------------------------------------------- */
+.tf-surface-survey-screen {
+  padding: 24px;
+}
+
+.tf-survey-main-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.8fr) 300px;
+  gap: 24px;
+  align-items: start;
+}
+
+.tf-surface-map-viewport {
+  position: relative;
+  aspect-ratio: 1.52;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid #334155;
+  background: #0f1f2c;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
+}
+
+.tf-survey-hex-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.tf-floating-legend-card {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  padding: 12px 16px;
+  border-radius: 12px;
+  background: rgba(15, 23, 42, 0.9);
+  border: 1px solid #334155;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+}
+
+.tf-legend-heading {
+  margin: 0 0 8px;
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: #94a3b8;
+  letter-spacing: 0.1em;
+}
+
+.tf-legend-items {
+  display: grid;
+  gap: 6px;
+}
+
+.tf-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #e2e8f0;
+}
+
+.tf-btn-scan-area {
+  width: 100%;
+  padding: 14px 20px;
+  border-radius: 9999px;
+  border: 0;
+  background: linear-gradient(180deg, #38bdf8 0%, #0284c7 100%);
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  box-shadow: 0 6px 18px rgba(2, 132, 199, 0.4);
+  transition: transform 0.16s ease;
+}
+
+.tf-btn-scan-area:hover {
+  transform: translateY(-2px);
+}
+
+.tf-btn-proceed-drilling {
+  width: 100%;
+  margin-top: 12px;
+  padding: 13px 20px;
+  border-radius: 9999px;
+  border: 0;
+  background: linear-gradient(180deg, #22c55e 0%, #16a34a 100%);
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.tf-survey-controls-sidebar {
+  display: grid;
+  gap: 16px;
+  padding: 20px;
+  border-radius: 16px;
+  background: #0f172a;
+  border: 1px solid #334155;
+}
+
+.tf-survey-tool-list {
+  display: grid;
+  gap: 8px;
+}
+
+.tf-survey-tool-btn {
+  display: grid;
+  grid-template-columns: 28px 1fr auto;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #334155;
+  background: #1e293b;
+  color: inherit;
+  cursor: pointer;
+  text-align: left;
+}
+
+.tf-survey-tool-btn.is-selected {
+  border-color: #38bdf8;
+  background: #132f42;
+}
+
+.tf-tool-glyph {
+  font-size: 16px;
+}
+
+.tf-tool-meta strong {
+  display: block;
+  font-size: 11px;
+}
+
+.tf-tool-meta small {
+  font-size: 9px;
+  color: #94a3b8;
+}
+
+.tf-tool-cost {
+  color: #fbbf24;
+  font-size: 11px;
+}
+
+/* --------------------------------------------------------------------------
+   SCREEN 4: TURMOIL DRILLING
+   -------------------------------------------------------------------------- */
+.tf-turmoil-drilling-screen {
+  padding: 24px;
+}
+
+.tf-snap-toggle-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #94a3b8;
+}
+
+.tf-toggle-switch {
+  width: 40px;
+  height: 22px;
+  border-radius: 9999px;
+  background: #334155;
+  border: 0;
+  cursor: pointer;
+  position: relative;
+  padding: 2px;
+  transition: background-color 0.2s ease;
+}
+
+.tf-toggle-switch.is-active {
+  background: #22c55e;
+}
+
+.tf-toggle-thumb {
+  display: block;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #ffffff;
+  transition: transform 0.2s ease;
+}
+
+.tf-toggle-switch.is-active .tf-toggle-thumb {
+  transform: translateX(18px);
+}
+
+.tf-drilling-viewport-container {
+  display: grid;
+  grid-template-columns: 50px minmax(0, 1.8fr) 140px;
+  gap: 16px;
+  align-items: stretch;
+}
+
+.tf-depth-axis-column {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 10px 0;
+  font-family: ui-monospace, monospace;
+  font-size: 11px;
+  font-weight: 700;
+  color: #94a3b8;
+  text-align: right;
+}
+
+.tf-subterranean-stage {
+  aspect-ratio: 1.25;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid #334155;
+  background: #0f172a;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
+}
+
+.tf-turmoil-cutaway-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  cursor: crosshair;
+}
+
+.tf-drilling-controls-column {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 18px;
+  border-radius: 16px;
+  background: #0f172a;
+  border: 1px solid #334155;
+  align-items: center;
+}
+
+.tf-drill-telemetry-badge {
+  width: 100%;
+  display: grid;
+  gap: 8px;
+  padding: 12px;
+  border-radius: 10px;
+  background: #1e293b;
+  border: 1px solid #334155;
+}
+
+.tf-telemetry-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+}
+
+.tf-telemetry-label {
+  color: #94a3b8;
+}
+
+.tf-telemetry-val {
+  font-weight: 800;
+  color: #f8fafc;
+}
+
+.tf-val--cost {
+  color: #fbbf24;
+}
+
+.tf-drill-action-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+}
+
+.tf-btn-circle {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 0;
+  display: grid;
+  place-items: center;
+  font-size: 18px;
+  cursor: pointer;
+  transition: transform 0.16s ease, filter 0.16s ease;
+}
+
+.tf-btn-circle:hover {
+  transform: scale(1.08);
+}
+
+.tf-btn-circle:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.tf-btn-undo {
+  background: #334155;
+  color: #f8fafc;
+}
+
+.tf-btn-clear {
+  background: #ef4444;
+  color: #ffffff;
+}
+
+.tf-btn-confirm {
+  background: #22c55e;
+  color: #ffffff;
+  box-shadow: 0 4px 14px rgba(34, 197, 94, 0.4);
+}
+
+.tf-pipe-erupting {
+  animation: pipePulse 0.4s ease-in-out infinite alternate;
+}
+
+@keyframes pipePulse {
+  0% { stroke-width: 2.4; stroke: #ff5722; }
+  100% { stroke-width: 3.2; stroke: #ffc107; }
+}
+
+/* --------------------------------------------------------------------------
+   SCREEN 5: PRODUCTION SETUP
+   -------------------------------------------------------------------------- */
+.tf-production-setup-screen {
+  padding: 24px;
+}
+
+.tf-telemetry-capsule {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 14px;
+  border-radius: 9999px;
+  background: #0f172a;
+  border: 1px solid #334155;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.tf-telemetry-capsule--temp {
+  border-color: #ff5722;
+  color: #ff5722;
+}
+
+.tf-telemetry-capsule--power {
+  border-color: #38bdf8;
+  color: #38bdf8;
+}
+
+.tf-production-plant-viewport {
+  aspect-ratio: 1.66;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid #334155;
+  background: #0f172a;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
+}
+
+.tf-plant-schematic-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.tf-spinning-turbine {
+  animation: spinTurbine 1s linear infinite;
+  transform-origin: 45px 45px;
+}
+
+@keyframes spinTurbine {
+  to { transform: rotate(360deg); }
+}
+
+.tf-flowing-hot-pipe {
+  stroke-dasharray: 8 4;
+  animation: hotPipeFlow 1s linear infinite;
+}
+
+@keyframes hotPipeFlow {
+  to { stroke-dashoffset: -12; }
+}
+
+.tf-flowing-return-pipe {
+  stroke-dasharray: 8 4;
+  animation: returnPipeFlow 1s linear infinite;
+}
+
+@keyframes returnPipeFlow {
+  to { stroke-dashoffset: 12; }
+}
+
+.tf-production-footer-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.tf-operating-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.tf-speed-chips {
+  display: flex;
+  gap: 4px;
+}
+
+.tf-speed-chip {
+  padding: 5px 8px;
+  border-radius: 6px;
+  border: 1px solid #334155;
+  background: #1e293b;
+  color: #94a3b8;
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.tf-speed-chip.is-active {
+  background: #0284c7;
+  color: #ffffff;
+  border-color: #0284c7;
+}
+
+.tf-storage-readout-pill {
+  padding: 6px 12px;
+  border-radius: 8px;
+  background: #1e293b;
+  border: 1px solid #334155;
+  font-size: 12px;
+  color: #94a3b8;
+}
+
+.tf-storage-readout-pill strong {
+  color: #38bdf8;
+  margin-left: 6px;
+}
+
+.tf-btn-settle-round {
+  padding: 12px 24px;
+  border-radius: 9999px;
+  border: 0;
+  background: linear-gradient(180deg, #f59e0b 0%, #d97706 100%);
+  color: #1e1b4b;
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+/* --------------------------------------------------------------------------
+   SCREEN 6: ROUND REPORT
+   -------------------------------------------------------------------------- */
+.tf-round-report-screen {
+  padding: 24px;
+}
+
+.tf-round-tag {
+  padding: 6px 14px;
+  border-radius: 9999px;
+  background: #1e293b;
+  border: 1px solid #475569;
+  font-size: 12px;
+  font-weight: 700;
+  color: #94a3b8;
+}
+
+.tf-report-cards-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+.tf-report-card {
+  padding: 24px;
+  border-radius: 16px;
+  background: #0f172a;
+  border: 1px solid #334155;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.tf-card-header-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.tf-star-large {
+  font-size: 24px;
+}
+
+.tf-card-label {
+  font-size: 14px;
+  font-weight: 800;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.tf-giant-profit-number {
+  font-size: clamp(36px, 5vw, 64px);
+  font-weight: 900;
+  color: #f8fafc;
+  letter-spacing: -0.04em;
+  line-height: 1;
+}
+
+.tf-profit-badge-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 9999px;
+  background: rgba(34, 197, 94, 0.15);
+  border: 1px solid #22c55e;
+  color: #4ade80;
+  font-size: 14px;
+  font-weight: 800;
+  width: fit-content;
+}
+
+.tf-profit-card-caption {
+  margin: 0;
+  font-size: 12px;
+  color: #94a3b8;
+  line-height: 1.5;
+}
+
+.tf-depletion-card-title {
+  font-size: 14px;
+  font-weight: 800;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.tf-depletion-bars-stack {
+  display: grid;
+  gap: 16px;
+}
+
+.tf-depletion-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #f8fafc;
+  margin-bottom: 6px;
+}
+
+.tf-depletion-percent {
+  margin-left: auto;
+  font-family: ui-monospace, monospace;
+}
+
+.tf-progress-track {
+  height: 12px;
+  border-radius: 9999px;
+  background: #1e293b;
+  overflow: hidden;
+  border: 1px solid #334155;
+}
+
+.tf-progress-fill {
+  height: 100%;
+  border-radius: 9999px;
+  transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.tf-fill--thermal {
+  background: linear-gradient(90deg, #ea580c 0%, #ff5722 100%);
+}
+
+.tf-fill--minerals {
+  background: linear-gradient(90deg, #0891b2 0%, #06b6d4 100%);
+}
+
+.tf-fill--ground {
+  background: linear-gradient(90deg, #16a34a 0%, #22c55e 100%);
+}
+
+.tf-report-financial-ledger {
+  padding: 20px;
+  border-radius: 16px;
+  background: #0f172a;
+  border: 1px solid #334155;
+  margin-bottom: 24px;
+}
+
+.tf-ledger-heading {
+  margin: 0 0 12px;
+  font-size: 13px;
+  font-weight: 800;
+  color: #94a3b8;
+  text-transform: uppercase;
+}
+
+.tf-ledger-lines-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 10px;
+}
+
+.tf-ledger-line {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 12px;
+  border-radius: 8px;
+  background: #1e293b;
+  font-size: 12px;
+}
+
+.tf-tone-positive strong {
+  color: #4ade80;
+}
+
+.tf-tone-negative strong {
+  color: #f87171;
+}
+
+.tf-report-footer-action {
+  display: flex;
+  justify-content: center;
+}
+
+.tf-btn-report-continue {
+  padding: 16px 48px;
+  border-radius: 9999px;
+  border: 0;
+  background: linear-gradient(180deg, #22c55e 0%, #16a34a 100%);
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(34, 197, 94, 0.4);
+  transition: transform 0.16s ease, filter 0.16s ease;
+}
+
+.tf-btn-report-continue:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.08);
+}
